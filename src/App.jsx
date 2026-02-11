@@ -8,11 +8,13 @@ import SignInForm from "./components/SignInForm/SignInForm";
 import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ResourceList from "./components/Resources/ResourceList";
+import ResourceDetails from "./components/Resources/ResourceDetails";
 
 //services
 import * as resourceService from "./services/resourceService";
 
 import { UserContext } from "./contexts/UserContext";
+
 const App = () => {
   const [resources, setResources] = useState([]);
   const { user } = useContext(UserContext);
@@ -37,6 +39,10 @@ const App = () => {
             <Route
               path="/resources"
               element={<ResourceList resources={resources} />}
+            />
+            <Route
+              path="/resources/:resourceId"
+              element={<ResourceDetails />}
             />
           </>
         ) : (
