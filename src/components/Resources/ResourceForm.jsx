@@ -16,7 +16,8 @@ const ResourceForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log("formData", formData);
+    console.log("formData in resource", formData);
+    props.handleAddResource(formData);
   };
 
   return (

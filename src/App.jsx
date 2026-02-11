@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Routes, Route } from "react-router";
+import { Routes, Route, useNavigate } from "react-router";
 
 import NavBar from "./components/NavBar/NavBar";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
@@ -19,6 +19,15 @@ import { UserContext } from "./contexts/UserContext";
 const App = () => {
   const [resources, setResources] = useState([]);
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleAddResource = async (resourceFormData) => {
+    console.log("resourceFormData in App", resourceFormData);
+    const newResource = await resourceService.create(resourceFormData);
+    setResources([newResource, ...resources]);
+
+    navigate("/resources");
+  };
 
   useEffect(() => {
     const fetchAllResources = async () => {
@@ -45,7 +54,10 @@ const App = () => {
               path="/resources/:resourceId"
               element={<ResourceDetails />}
             />
-            <Route path="/resources/new" element={<ResourceForm />} />
+            <Route
+              path="/resources/new"
+              element={<ResourceForm handleAddResource={handleAddResource} />}
+            />
           </>
         ) : (
           <>
