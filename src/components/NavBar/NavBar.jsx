@@ -1,34 +1,28 @@
-// Import the useContext hook
 import { useContext } from "react";
 import { Link } from "react-router";
 
-// Import the UserContext object
 import { UserContext } from "../../contexts/UserContext";
 
-// src/components/Navbar/Navbar.jsx
-
 const NavBar = () => {
-  // Get the setUser function from the UserContext
   const { user, setUser } = useContext(UserContext);
 
-  // Add the handleSignOut function
   const handleSignOut = () => {
-    // Clear the token from localStorage
     localStorage.removeItem("token");
-    // Clear the user state
     setUser(null);
   };
-
-  // src/components/NavBar/NavBar.jsx
 
   return (
     <nav>
       {user ? (
         <ul>
-          <li>Welcome, {user.username}</li>
-          {/* The new link */}
           <li>
-            <Link to="/">Dashboard</Link>
+            <Link to="/">HOME</Link>
+          </li>
+          <li>
+            <Link to="/resources">RESOURCES</Link>
+          </li>
+          <li>
+            <Link to="/resources/new">NEW RESOURCE</Link>
           </li>
           <li>
             <Link to="/" onClick={handleSignOut}>
@@ -38,15 +32,14 @@ const NavBar = () => {
         </ul>
       ) : (
         <ul>
-          {/* Another new link */}
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">HOME</Link>
           </li>
           <li>
-            <Link to="/sign-in">Sign In</Link>
+            <Link to="/sign-in">SIGN IN</Link>
           </li>
           <li>
-            <Link to="/sign-up">Sign Up</Link>
+            <Link to="/sign-up">SIGN UP</Link>
           </li>
         </ul>
       )}
