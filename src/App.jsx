@@ -1,17 +1,30 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
 
 import NavBar from "./components/NavBar/NavBar";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import SignInForm from "./components/SignInForm/SignInForm";
-// Import the Landing and Dashboard components
+
 import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ResourceList from "./components/Resources/ResourceList";
 
+//services
+import * as resourceService from "./services/resourceService";
+
 import { UserContext } from "./contexts/UserContext";
 const App = () => {
+  const [resources, setResources] = useState([]);
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    const fetchAllResources = async () => {
+      const resourcesData = await resourceService.index();
+      console.log("resourcesData:", resourcesData);
+      setResources(resourcesData);
+    };
+    if (user) fetchAllResources();
+  }, [user]);
 
   return (
     <>
@@ -21,7 +34,10 @@ const App = () => {
         {user ? (
           <>
             {/* Protected routes available only to signed-in users */}
-            <Route path="/resources" element={<ResourceList />} />
+            <Route
+              path="/resources"
+              element={<ResourceList resources={resources} />}
+            />
           </>
         ) : (
           <>
