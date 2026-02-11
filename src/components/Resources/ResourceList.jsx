@@ -9,10 +9,11 @@ const ResourceList = ({ resources }) => {
             <header>
               <h2>{resource.title}</h2>
               <p>
-                {resource.createdAt &&
-                  `${new Date(resource.createdAt).toLocaleDateString()}`}
+                {`${resource.author_username} posted on
+                ${new Date(resource.createdAt).toLocaleDateString()}`}
               </p>
             </header>
+            {resource.description && <p>{resource.description}</p>}
           </article>
         </Link>
       ))}
