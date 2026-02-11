@@ -7,6 +7,7 @@ import SignInForm from "./components/SignInForm/SignInForm";
 // Import the Landing and Dashboard components
 import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
+import ResourceList from "./components/Resources/ResourceList";
 
 import { UserContext } from "./contexts/UserContext";
 const App = () => {
@@ -16,10 +17,19 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
-        {/* Add the new `/` route! */}
         <Route path="/" element={user ? <Dashboard /> : <Landing />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
-        <Route path="/sign-in" element={<SignInForm />} />
+        {user ? (
+          <>
+            {/* Protected routes available only to signed-in users */}
+            <Route path="/resources" element={<ResourceList />} />
+          </>
+        ) : (
+          <>
+            {/* Non-user routes for guests */}
+            <Route path="/sign-up" element={<SignUpForm />} />
+            <Route path="/sign-in" element={<SignInForm />} />
+          </>
+        )}
       </Routes>
     </>
   );
