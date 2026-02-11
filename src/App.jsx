@@ -9,6 +9,7 @@ import Landing from "./components/Landing/Landing";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ResourceList from "./components/Resources/ResourceList";
 import ResourceDetails from "./components/Resources/ResourceDetails";
+import ResourceForm from "./components/Resources/ResourceForm";
 
 //services
 import * as resourceService from "./services/resourceService";
@@ -44,6 +45,7 @@ const App = () => {
               path="/resources/:resourceId"
               element={<ResourceDetails />}
             />
+            <Route path="/resources/new" element={<ResourceForm />} />
           </>
         ) : (
           <>
