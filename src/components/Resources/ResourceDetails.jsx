@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import * as resourceService from "../../services/resourceService";
 import { UserContext } from "../../contexts/UserContext";
 
-const ResourceDetails = () => {
+const ResourceDetails = (props) => {
   const { resourceId } = useParams();
   console.log("resourceId", resourceId);
   const [resource, setResource] = useState(null);
@@ -34,6 +34,9 @@ const ResourceDetails = () => {
           {resource.resource_author_id === user.id && (
             <>
               <Link to={`/resources/${resourceId}/edit`}>Edit</Link>
+              <button onClick={() => props.handleDeleteResource(resourceId)}>
+                Delete
+              </button>
             </>
           )}
         </header>

@@ -38,4 +38,18 @@ const create = async (resourceFormData) => {
   }
 };
 
-export { index, show, create };
+const deleteResource = async (resourceId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${resourceId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { index, show, create, deleteResource };

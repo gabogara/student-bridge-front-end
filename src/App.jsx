@@ -29,6 +29,12 @@ const App = () => {
     navigate("/resources");
   };
 
+  const handleDeleteResource = async (resourceId) => {
+    const deletedResource = await resourceService.deleteResource(resourceId);
+    setResources(resources.filter((r) => r.id !== deletedResource.id));
+    navigate("/resources");
+  };
+
   useEffect(() => {
     const fetchAllResources = async () => {
       const resourcesData = await resourceService.index();
@@ -52,7 +58,9 @@ const App = () => {
             />
             <Route
               path="/resources/:resourceId"
-              element={<ResourceDetails />}
+              element={
+                <ResourceDetails handleDeleteResource={handleDeleteResource} />
+              }
             />
             <Route
               path="/resources/new"
