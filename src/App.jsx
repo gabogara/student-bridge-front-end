@@ -35,6 +35,17 @@ const App = () => {
     navigate("/resources");
   };
 
+  const handleUpdateResource = async (resourceId, resourceFormData) => {
+    const updatedResource = await resourceService.update(
+      resourceId,
+      resourceFormData
+    );
+    setResources(
+      resources.map((r) => (resourceId === r.id ? updatedResource : r))
+    );
+    navigate(`/resources/${resourceId}`);
+  };
+
   useEffect(() => {
     const fetchAllResources = async () => {
       const resourcesData = await resourceService.index();
@@ -65,6 +76,12 @@ const App = () => {
             <Route
               path="/resources/new"
               element={<ResourceForm handleAddResource={handleAddResource} />}
+            />
+            <Route
+              path="/resources/:resourceId/edit"
+              element={
+                <ResourceForm handleUpdateResource={handleUpdateResource} />
+              }
             />
           </>
         ) : (

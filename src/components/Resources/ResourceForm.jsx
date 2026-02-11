@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useParams } from "react-router";
+import { useState, useEffect } from "react";
+import * as resourceService from "../../services/resourceService";
 
 const ResourceForm = (props) => {
+  const { resourceId } = useParams();
+  console.log("If new it must be undefined", resourceId);
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -10,6 +15,33 @@ const ResourceForm = (props) => {
     requirements: "",
   });
 
+  useEffect(() => {
+    const fetchResource = async () => {
+      const resourceData = await resourceService.show(resourceId);
+      
+      // Prefill form data from the transaction returned by the API
+      setFormData({
+        title: resourceData.title ?? "",
+        description: resourceData.description ?? "",
+        category: resourceData.category ?? "Food",
+        address: resourceData.address ?? "",
+        city: resourceData.city ?? "",
+        requirements: resourceData.requirements ?? "",
+      });
+    };
+    if (resourceId) fetchResource();
+
+    return () =>
+      setFormData({
+        title: "",
+        description: "",
+        category: "Food",
+        address: "",
+        city: "",
+        requirements: "",
+      });
+  }, [resourceId]);
+
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
@@ -17,11 +49,16 @@ const ResourceForm = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     console.log("formData in resource", formData);
-    props.handleAddResource(formData);
+    if (resourceId) {
+      props.handleUpdateResource(resourceId, formData);
+    } else {
+      props.handleAddResource(formData);
+    }
   };
 
   return (
     <main>
+      <h1>{resourceId ? "Edit Resource" : "New Resource"}</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title-input">Title</label>
         <input
