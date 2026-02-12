@@ -9,6 +9,19 @@ const MapView = (props) => {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
 
+  const buildPopupHtml = (resource) => {
+    const addressLine = `${resource.address}, ${resource.city}`;
+
+    return `
+      <div>
+        <h3>${resource.title}</h3>
+        <p><strong>${resource.category}</strong></p>
+        <p>${addressLine}</p>
+        <p>Details: /resources/${resource.id}</p>
+      </div>
+    `;
+  };
+
   useEffect(() => {
     if (!import.meta.env.VITE_MAPBOX_TOKEN) {
       console.log("Missing VITE_MAPBOX_TOKEN in .env");
@@ -53,14 +66,21 @@ const MapView = (props) => {
       const lat = Number(resource.lat);
       const lng = Number(resource.lng);
 
+      // si lat/lng no son num validos ignora
       if (Number.isNaN(lat) || Number.isNaN(lng)) return;
 
       hasPoints = true;
       bounds.extend([lng, lat]);
 
+      const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+        buildPopupHtml(resource)
+      );
+
       const marker = new mapboxgl.Marker()
         .setLngLat([lng, lat])
+        .setPopup(popup)
         .addTo(mapRef.current);
+
       markersRef.current.push(marker);
     });
 
