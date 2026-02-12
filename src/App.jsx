@@ -59,7 +59,10 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={user ? <Dashboard /> : <Landing />} />
+        <Route
+          path="/"
+          element={user ? <Dashboard resources={resources} /> : <Landing />}
+        />
         {user ? (
           <>
             {/* Protected routes available only to signed-in users */}

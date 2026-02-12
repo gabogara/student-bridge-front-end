@@ -2,10 +2,11 @@ import { useState } from "react";
 import SearchBar from "./dashboardComponents/SearchBar";
 import "./dashboard.css";
 import CategoryFilter from "./dashboardComponents/CategoryFilter";
+import ResourceListPanel from "./dashboardComponents/ResourceListPanel";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const [searchText, setSearchText] = useState("");
-  const [ category, setCategory ]= useState("All")
+  const [category, setCategory] = useState("All");
 
   return (
     <main className="dashboard">
@@ -17,15 +18,14 @@ const Dashboard = () => {
       <section className="dashboard-controls">
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
 
-        <CategoryFilter category= {category} setCategory={setCategory}/>
+        <CategoryFilter category={category} setCategory={setCategory} />
 
         <button type="button">Clear</button>
       </section>
 
       <div className="dashboard-layout">
         <aside className="dashboard-sidebar">
-          <h2>Resources</h2>
-          <p>List placeholder</p>
+          <ResourceListPanel resources={props.resources} />
         </aside>
 
         <section className="dashboard-map">
