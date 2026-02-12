@@ -3,6 +3,7 @@ import SearchBar from "./dashboardComponents/SearchBar";
 import "./dashboard.css";
 import CategoryFilter from "./dashboardComponents/CategoryFilter";
 import ResourceListPanel from "./dashboardComponents/ResourceListPanel";
+import MapView from "./dashboardComponents/MapView";
 
 const Dashboard = (props) => {
   const [searchText, setSearchText] = useState("");
@@ -51,8 +52,7 @@ const Dashboard = (props) => {
         </aside>
 
         <section className="dashboard-map">
-          <h2>Map</h2>
-          <div className="map-container">Map placeholder</div>
+          <MapView resources={filteredResources} />
         </section>
       </div>
     </main>
