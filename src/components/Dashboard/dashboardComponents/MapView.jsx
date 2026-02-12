@@ -17,7 +17,13 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
         <h3>${resource.title}</h3>
         <p><strong>${resource.category}</strong></p>
         <p>${addressLine}</p>
-        <p>Details: /resources/${resource.id}</p>
+        <button
+        type="button"
+        class="popup-btn"
+        data-resource-id="${resource.id}"
+      >
+        View Details
+      </button>
       </div>
     `;
   };
