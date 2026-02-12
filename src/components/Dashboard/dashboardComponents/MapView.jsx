@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const MapView = ({ resources, selectedResource, setSelectedResource }) => {
+  const navigate = useNavigate();
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const markersRef = useRef([]);
@@ -80,7 +82,7 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
       const lat = Number(resource.lat);
       const lng = Number(resource.lng);
 
-      // si lat/lng no son num validos ignora
+      // si lat/lng are not valid num ignora
       if (Number.isNaN(lat) || Number.isNaN(lng)) return;
 
       hasPoints = true;
@@ -89,6 +91,17 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
       const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
         buildPopupHtml(resource)
       );
+
+      popup.on("open", () => {
+        const el = popup.getElement();
+        const btn = el.querySelector(".popup-btn");
+        if (!btn) return;
+
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          navigate(`/resources/${resource.id}`);
+        });
+      });
 
       const marker = new mapboxgl.Marker()
         .setLngLat([lng, lat])
