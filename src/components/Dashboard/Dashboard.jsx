@@ -50,7 +50,11 @@ const Dashboard = (props) => {
 
       <div className="dashboard-layout">
         <aside className="dashboard-sidebar">
-          <ResourceListPanel resources={filteredResources} />
+          <ResourceListPanel
+            resources={filteredResources}
+            selectedResource={selectedResource}
+            setSelectedResource={setSelectedResource}
+          />
         </aside>
 
         <section className="dashboard-map">
