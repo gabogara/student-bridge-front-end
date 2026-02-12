@@ -1,37 +1,40 @@
-// src/components/Dashboard/Dashboard.jsx
-import { useEffect, useContext, useState } from "react";
-import { UserContext } from "../../contexts/UserContext";
-import * as userService from "../../services/userService";
+import "./dashboard.css";
 
 const Dashboard = () => {
-  const { user } = useContext(UserContext);
-  const [users, setUsers] = useState([]); // <-- estado para la lista
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const fetchedUsers = await userService.index();
-        setUsers(fetchedUsers); // <-- guardas la data
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    if (user) fetchUsers();
-  }, [user]);
-
   return (
-    <main>
-      <h1>Welcome, {user?.username}</h1>
-      <p>
-        This is the dashboard page where you can see a list of all the users.
-      </p>
+    <main className="dashboard">
+      <header className="dashboard-header">
+        <h1>Dashboard</h1>
+        <p>Explore resources on the map and filter them from the list.</p>
+      </header>
 
-      <ul>
-        {users.map((u) => (
-          <li key={u._id}>{u.username}</li>
-        ))}
-      </ul>
+      <section className="dashboard-controls">
+        <div className="control">
+          <label>Search</label>
+          <input />
+        </div>
+
+        <div className="control">
+          <label>Category</label>
+          <select>
+            <option>All</option>
+          </select>
+        </div>
+
+        <button type="button">Clear</button>
+      </section>
+
+      <div className="dashboard-layout">
+        <aside className="dashboard-sidebar">
+          <h2>Resources</h2>
+          <p>List placeholder</p>
+        </aside>
+
+        <section className="dashboard-map">
+          <h2>Map</h2>
+          <div className="map-container">Map placeholder</div>
+        </section>
+      </div>
     </main>
   );
 };
