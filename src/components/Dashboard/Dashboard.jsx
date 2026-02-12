@@ -23,6 +23,11 @@ const Dashboard = (props) => {
     return matchesCategory && matchesSearch;
   });
 
+  const handleClearFilters = () => {
+    setSearchText("");
+    setCategory("All");
+  };
+
   return (
     <main className="dashboard">
       <header className="dashboard-header">
@@ -35,7 +40,9 @@ const Dashboard = (props) => {
 
         <CategoryFilter category={category} setCategory={setCategory} />
 
-        <button type="button">Clear</button>
+        <button type="button" onClick={handleClearFilters}>
+          Clear
+        </button>
       </section>
 
       <div className="dashboard-layout">
