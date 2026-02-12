@@ -18,7 +18,7 @@ const ResourceForm = (props) => {
   useEffect(() => {
     const fetchResource = async () => {
       const resourceData = await resourceService.show(resourceId);
-      
+
       // Prefill form data from the transaction returned by the API
       setFormData({
         title: resourceData.title ?? "",
@@ -90,9 +90,7 @@ const ResourceForm = (props) => {
           <option value="Food">Food</option>
           <option value="Housing">Housing</option>
           <option value="Health">Health</option>
-          <option value="Legal">Legal</option>
           <option value="Education">Education</option>
-          <option value="General">General</option>
         </select>
 
         <label htmlFor="address-input">Address</label>
