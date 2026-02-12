@@ -1,6 +1,10 @@
+import { useState } from "react";
+import SearchBar from "./dashboardComponents/SearchBar";
 import "./dashboard.css";
 
 const Dashboard = () => {
+  const [searchText, setSearchText] = useState("");
+
   return (
     <main className="dashboard">
       <header className="dashboard-header">
@@ -9,10 +13,7 @@ const Dashboard = () => {
       </header>
 
       <section className="dashboard-controls">
-        <div className="control">
-          <label>Search</label>
-          <input />
-        </div>
+        <SearchBar searchText={searchText} setSearchText={setSearchText} />
 
         <div className="control">
           <label>Category</label>
