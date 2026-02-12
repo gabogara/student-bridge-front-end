@@ -77,3 +77,12 @@
 .muted {
   opacity: 0.8;
 }
+
+.popup-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  background: transparent;
+  cursor: pointer;
+}
