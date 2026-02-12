@@ -1,9 +1,11 @@
 import { useState } from "react";
 import SearchBar from "./dashboardComponents/SearchBar";
 import "./dashboard.css";
+import CategoryFilter from "./dashboardComponents/CategoryFilter";
 
 const Dashboard = () => {
   const [searchText, setSearchText] = useState("");
+  const [ category, setCategory ]= useState("All")
 
   return (
     <main className="dashboard">
@@ -15,12 +17,7 @@ const Dashboard = () => {
       <section className="dashboard-controls">
         <SearchBar searchText={searchText} setSearchText={setSearchText} />
 
-        <div className="control">
-          <label>Category</label>
-          <select>
-            <option>All</option>
-          </select>
-        </div>
+        <CategoryFilter category= {category} setCategory={setCategory}/>
 
         <button type="button">Clear</button>
       </section>
