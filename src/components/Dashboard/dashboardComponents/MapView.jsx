@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
-const MapView = (props) => {
+const MapView = ({ resources, selectedResource, setSelectedResource }) => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const markersRef = useRef([]);
@@ -45,6 +45,11 @@ const MapView = (props) => {
     });
 
     return () => {
+      // limpiar markers
+      markersRef.current.forEach((m) => m.remove());
+      markersRef.current = [];
+
+      // remove map and resetear ref
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;
@@ -56,13 +61,16 @@ const MapView = (props) => {
   useEffect(() => {
     if (!mapRef.current) return;
 
+    if (!mapRef.current.getCanvasContainer) return;
+
+    // remove old markers
     markersRef.current.forEach((m) => m.remove());
     markersRef.current = [];
 
     const bounds = new mapboxgl.LngLatBounds();
     let hasPoints = false;
 
-    props.resources.forEach((resource) => {
+    resources.forEach((resource) => {
       const lat = Number(resource.lat);
       const lng = Number(resource.lng);
 
@@ -81,6 +89,9 @@ const MapView = (props) => {
         .setPopup(popup)
         .addTo(mapRef.current);
 
+      marker.getElement().addEventListener("click", () => {
+        setSelectedResource(resource);
+      });
       markersRef.current.push(marker);
     });
 
@@ -91,11 +102,7 @@ const MapView = (props) => {
         console.log("fitBounds error:", err);
       }
     }
-
-    requestAnimationFrame(() => {
-      if (mapRef.current) mapRef.current.resize();
-    });
-  }, [props.resources]);
+  }, [resources, setSelectedResource]);
 
   return <div className="map-container" ref={mapContainerRef} />;
 };

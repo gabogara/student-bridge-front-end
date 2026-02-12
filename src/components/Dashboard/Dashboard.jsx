@@ -8,6 +8,7 @@ import MapView from "./dashboardComponents/MapView";
 const Dashboard = (props) => {
   const [searchText, setSearchText] = useState("");
   const [category, setCategory] = useState("All");
+  const [selectedResource, setSelectedResource] = useState(null);
 
   const filteredResources = props.resources.filter((resource) => {
     const matchesCategory =
@@ -27,6 +28,7 @@ const Dashboard = (props) => {
   const handleClearFilters = () => {
     setSearchText("");
     setCategory("All");
+    setSelectedResource(null);
   };
 
   return (
@@ -52,7 +54,11 @@ const Dashboard = (props) => {
         </aside>
 
         <section className="dashboard-map">
-          <MapView resources={filteredResources} />
+          <MapView
+            resources={filteredResources}
+            selectedResource={selectedResource}
+            setSelectedResource={setSelectedResource}
+          />
         </section>
       </div>
     </main>
