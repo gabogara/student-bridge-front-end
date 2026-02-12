@@ -8,6 +8,21 @@ const Dashboard = (props) => {
   const [searchText, setSearchText] = useState("");
   const [category, setCategory] = useState("All");
 
+  const filteredResources = props.resources.filter((resource) => {
+    const matchesCategory =
+      category === "All" || resource.category === category;
+
+    const text = searchText.toLowerCase();
+
+    const matchesSearch =
+      (resource.title || "").toLowerCase().includes(text) ||
+      (resource.description || "").toLowerCase().includes(text) ||
+      (resource.address || "").toLowerCase().includes(text) ||
+      (resource.city || "").toLowerCase().includes(text);
+
+    return matchesCategory && matchesSearch;
+  });
+
   return (
     <main className="dashboard">
       <header className="dashboard-header">
@@ -25,7 +40,7 @@ const Dashboard = (props) => {
 
       <div className="dashboard-layout">
         <aside className="dashboard-sidebar">
-          <ResourceListPanel resources={props.resources} />
+          <ResourceListPanel resources={filteredResources} />
         </aside>
 
         <section className="dashboard-map">
