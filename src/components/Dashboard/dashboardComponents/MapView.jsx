@@ -45,7 +45,7 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
     });
 
     return () => {
-      // limpiar markers
+      // clean markers
       markersRef.current.forEach((m) => m.remove());
       markersRef.current = [];
 
@@ -103,6 +103,25 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
       }
     }
   }, [resources, setSelectedResource]);
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+    if (!selectedResource) return;
+
+    const lat = Number(selectedResource.lat);
+    const lng = Number(selectedResource.lng);
+
+    if (Number.isNaN(lat) || Number.isNaN(lng)) return;
+
+    mapRef.current.flyTo({
+      center: [lng, lat],
+      zoom: 14,
+      essential: true,
+    });
+    requestAnimationFrame(() => {
+      if (mapRef.current) mapRef.current.resize();
+    });
+  }, [selectedResource]);
 
   return <div className="map-container" ref={mapContainerRef} />;
 };
