@@ -41,6 +41,28 @@ const ResourceDetails = (props) => {
     });
   };
 
+  const handleDeleteVerification = async (verificationId) => {
+    const result = await verificationService.deleteVerification(
+      resourceId,
+      verificationId
+    );
+
+    if (result?.error) {
+      console.log(result.error);
+      return;
+    }
+
+    setResource({
+      ...resource,
+      verifications: resource.verifications.filter(
+        (v) => v.verification_id !== verificationId
+      ),
+    });
+  };
+
+
+
+
   if (!resource) return <main>Loading...</main>;
 
   const isOwner = resource.resource_author_id === user?.id;
@@ -107,6 +129,13 @@ const ResourceDetails = (props) => {
               <p>
                 <strong>Status:</strong> {v.status}
               </p>
+              {v.verification_author_id === user?.id && (
+                <button
+                  onClick={() => handleDeleteVerification(v.verification_id)}
+                >
+                  Delete
+                </button>
+              )}
             </header>
 
             <p>{v.note}</p>

@@ -16,4 +16,21 @@ const create = async (resourceId, verificationFormData) => {
   }
 };
 
-export { create };
+const deleteVerification = async (resourceId, verificationId) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/${resourceId}/verifications/${verificationId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { create, deleteVerification };
