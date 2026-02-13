@@ -1,10 +1,14 @@
-import { useParams } from "react-router";
+import { useParams, useNavigate, useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import * as resourceService from "../../services/resourceService";
 
 const ResourceForm = (props) => {
   const { resourceId } = useParams();
   console.log("If new it must be undefined", resourceId);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/resources";
 
   const [formData, setFormData] = useState({
     title: "",
@@ -123,6 +127,9 @@ const ResourceForm = (props) => {
         />
 
         <button type="submit">SUBMIT</button>
+        <button type="button" onClick={() => navigate(from)}>
+          Cancel
+        </button>
       </form>
     </main>
   );

@@ -1,14 +1,19 @@
 import { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 import { UserContext } from "../../contexts/UserContext";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.pathname + location.search;
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
     setUser(null);
+    navigate("/");
   };
 
   return (
@@ -22,7 +27,9 @@ const NavBar = () => {
             <Link to="/resources">RESOURCES</Link>
           </li>
           <li>
-            <Link to="/resources/new">NEW RESOURCE</Link>
+            <Link to="/resources/new" state={{ from }}>
+              NEW RESOURCE
+            </Link>
           </li>
           <li>
             <Link to="/" onClick={handleSignOut}>

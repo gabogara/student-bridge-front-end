@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router";
+import { useParams, Link, useLocation, useNavigate } from "react-router";
 import { useState, useEffect, useContext } from "react";
 
 import * as resourceService from "../../services/resourceService";
@@ -13,6 +13,9 @@ const ResourceDetails = (props) => {
   const [editingVerificationId, setEditingVerificationId] = useState(null);
 
   const { user } = useContext(UserContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/resources";
 
   useEffect(() => {
     const fetchResource = async () => {
@@ -112,6 +115,9 @@ const ResourceDetails = (props) => {
     <main>
       <section>
         <header>
+          <button type="button" onClick={() => navigate(from)}>
+            Back
+          </button>
           <p>{resource.category}</p>
           <h1>{resource.title}</h1>
 
@@ -128,7 +134,12 @@ const ResourceDetails = (props) => {
 
           {isOwner && (
             <>
-              <Link to={`/resources/${resourceId}/edit`}>Edit</Link>
+              <Link
+                to={`/resources/${resourceId}/edit`}
+                state={{ from: location.pathname + location.search }}
+              >
+                Edit
+              </Link>
 
               <button onClick={() => props.handleDeleteResource(resourceId)}>
                 Delete
