@@ -1,19 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const VerificationForm = (props) => {
-  const [formData, setFormData] = useState({
-    status: "Active",
-    note: "",
-  });
-
-  useEffect(() => {
+  const initialFormData = useMemo(() => {
     if (props.initialData) {
-      setFormData({
+      return {
         status: props.initialData.status ?? "Active",
         note: props.initialData.note ?? "",
-      });
+      };
     }
+    return { status: "Active", note: "" };
   }, [props.initialData]);
+
+  const [formData, setFormData] = useState(initialFormData);
+
+  useEffect(() => {
+    setFormData(initialFormData);
+  }, [initialFormData]);
 
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
