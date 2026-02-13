@@ -37,9 +37,23 @@ const ResourceDetails = (props) => {
       return;
     }
 
-    setResource({
-      ...resource,
-      verifications: [newVerification, ...resource.verifications],
+    setResource((prev) => {
+      const prevVerifications = prev.verifications || [];
+
+      const exists = prevVerifications.some(
+        (v) => v.verification_id === newVerification.verification_id
+      );
+
+      return {
+        ...prev,
+        verifications: exists
+          ? prevVerifications.map((v) =>
+              v.verification_id === newVerification.verification_id
+                ? newVerification
+                : v
+            )
+          : [newVerification, ...prevVerifications],
+      };
     });
   };
 
