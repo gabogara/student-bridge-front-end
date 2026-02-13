@@ -1,0 +1,68 @@
+.details-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.details-header h1 {
+  margin: 6px 0 6px 0;
+}
+
+.details-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.details-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.status-line {
+  margin-top: 8px;
+}
+
+.checkin-form {
+  margin: 10px 0 12px 0;
+}
+
+.checkin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkin-item {
+  border: 1px solid #d9e2ef;
+  border-radius: 10px;
+  padding: 12px;
+  background: white;
+}
+
+.checkin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.checkin-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.checkin-edit {
+  margin-top: 10px;
+}
+
+@media (max-width: 900px) {
+  .details-layout {
+    grid-template-columns: 1fr;
+  }
+}

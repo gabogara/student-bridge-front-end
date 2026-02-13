@@ -6,6 +6,8 @@ import { UserContext } from "../../contexts/UserContext";
 import * as verificationService from "../../services/verificationService";
 import VerificationForm from "../Verifications/VerificationForm";
 
+import "./ResourceDetails.css";
+
 const ResourceDetails = (props) => {
   const { resourceId } = useParams();
   console.log("resourceId", resourceId);
@@ -112,104 +114,138 @@ const ResourceDetails = (props) => {
     resource.verifications.length > 0 ? resource.verifications[0].status : null;
 
   return (
-    <main>
-      <section>
-        <header>
-          <button type="button" onClick={() => navigate(from)}>
-            Back
-          </button>
-          <p>{resource.category}</p>
-          <h1>{resource.title}</h1>
-
-          <p>
-            {`${resource.author_username} posted on
-            ${new Date(resource.createdAt).toLocaleDateString()}`}
-          </p>
-
-          {currentStatus && (
-            <p>
-              <strong>Current status:</strong> {currentStatus}
-            </p>
-          )}
-
-          {isOwner && (
-            <>
-              <Link
-                to={`/resources/${resourceId}/edit`}
-                state={{ from: location.pathname + location.search }}
-              >
-                Edit
-              </Link>
-
-              <button onClick={() => props.handleDeleteResource(resourceId)}>
-                Delete
+    <main className="page">
+      <div className="details-layout">
+        <section className="card details-left">
+          <header className="details-header">
+            <div className="details-top">
+              <button type="button" onClick={() => navigate(from)}>
+                Go Back
               </button>
-            </>
-          )}
-        </header>
 
-        {resource.description && <p>{resource.description}</p>}
-
-        <p>
-          <strong>Address:</strong> {resource.address}, {resource.city}
-        </p>
-
-        {resource.requirements && (
-          <p>
-            <strong>Requirements:</strong> {resource.requirements}
-          </p>
-        )}
-      </section>
-
-      <section>
-        <h2>Community Check-ins</h2>
-
-        <VerificationForm handleSubmitVerification={handleAddVerification} />
-
-        {!resource.verifications.length && <p>There are no check-ins yet.</p>}
-
-        {resource.verifications.map((v) => (
-          <article key={v.verification_id}>
-            <header>
-              <p>
-                {`${v.verification_author_username} checked in on
-                ${new Date(v.createdAt).toLocaleDateString()}`}
-              </p>
-              <p>
-                <strong>Status:</strong> {v.status}
-              </p>
-              {v.verification_author_id === user?.id && (
-                <>
-                  <button
-                    onClick={() => setEditingVerificationId(v.verification_id)}
+              {isOwner && (
+                <div className="details-actions">
+                  <Link
+                    to={`/resources/${resourceId}/edit`}
+                    state={{ from: location.pathname + location.search }}
                   >
-                    Edit
-                  </button>
+                    <button type="button">Edit</button>
+                  </Link>
 
                   <button
-                    onClick={() => handleDeleteVerification(v.verification_id)}
+                    type="button"
+                    className="danger"
+                    onClick={() => props.handleDeleteResource(resourceId)}
                   >
                     Delete
                   </button>
-                </>
+                </div>
               )}
-            </header>
+            </div>
 
-            {editingVerificationId === v.verification_id ? (
-              <VerificationForm
-                initialData={{ status: v.status, note: v.note }}
-                buttonText="UPDATE"
-                handleSubmitVerification={(formData) =>
-                  handleUpdateVerification(v.verification_id, formData)
-                }
-                handleCancel={() => setEditingVerificationId(null)}
-              />
-            ) : (
-              <p>{v.note}</p>
+            <p className="muted">{resource.category}</p>
+            <h1>{resource.title}</h1>
+
+            <p className="muted">
+              {`${resource.author_username} posted on ${new Date(
+                resource.createdAt
+              ).toLocaleDateString()}`}
+            </p>
+
+            {currentStatus && (
+              <p className="status-line">
+                <strong>Current status:</strong> {currentStatus}
+              </p>
             )}
-          </article>
-        ))}
-      </section>
+          </header>
+
+          {resource.description && <p>{resource.description}</p>}
+
+          <p>
+            <strong>Address:</strong> {resource.address}, {resource.city}
+          </p>
+
+          {resource.requirements && (
+            <p>
+              <strong>Requirements:</strong> {resource.requirements}
+            </p>
+          )}
+        </section>
+
+        <section className="card details-right">
+          <h2>Community Check-ins</h2>
+
+          <div className="checkin-form">
+            <VerificationForm
+              handleSubmitVerification={handleAddVerification}
+            />
+          </div>
+
+          {!resource.verifications.length && (
+            <p className="muted">There are no check-ins yet.</p>
+          )}
+
+          <div className="checkin-list">
+            {resource.verifications.map((v) => (
+              <article key={v.verification_id} className="checkin-item">
+                <header className="checkin-header">
+                  <div>
+                    <p className="muted">
+                      {`${
+                        v.verification_author_username
+                      } checked in on ${new Date(
+                        v.createdAt
+                      ).toLocaleDateString()}`}
+                    </p>
+
+                    <p>
+                      <strong>Status:</strong> {v.status}
+                    </p>
+                  </div>
+
+                  {v.verification_author_id === user?.id && (
+                    <div className="checkin-actions">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setEditingVerificationId(v.verification_id)
+                        }
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        className="danger"
+                        onClick={() =>
+                          handleDeleteVerification(v.verification_id)
+                        }
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
+                </header>
+
+                {editingVerificationId === v.verification_id ? (
+                  <div className="checkin-edit">
+                    <VerificationForm
+                      initialData={{ status: v.status, note: v.note }}
+                      buttonText="UPDATE"
+                      handleSubmitVerification={(formData) =>
+                        handleUpdateVerification(v.verification_id, formData)
+                      }
+                      handleCancel={() => setEditingVerificationId(null)}
+                    />
+                  </div>
+                ) : (
+                  <p>{v.note}</p>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+      </div>
     </main>
   );
 };
