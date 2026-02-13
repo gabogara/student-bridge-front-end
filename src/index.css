@@ -51,6 +51,7 @@ button {
 
 button:hover {
   background: #f3f6fb;
+  transform: translateY(-2px);
 }
 
 button.primary {
@@ -109,4 +110,6 @@ textarea {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  padding: 30px;
+  justify-content: center;
 }
