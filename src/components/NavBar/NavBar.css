@@ -1,0 +1,72 @@
+.navbar {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  height: 60px;
+  width: auto;
+  display: block;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-links li {
+  display: flex;
+}
+
+.nav-links a {
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.nav-links a:hover {
+  background: #f3f6fb;
+}
+
+/* when no user*/
+.navbar > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-left: auto;
+}
+
+.navbar > ul li {
+  display: flex;
+}
+
+.navbar > ul a {
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.navbar > ul a:hover {
+  background: #f3f6fb;
+}
