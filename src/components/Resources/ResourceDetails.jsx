@@ -10,6 +10,8 @@ const ResourceDetails = (props) => {
   const { resourceId } = useParams();
   console.log("resourceId", resourceId);
   const [resource, setResource] = useState(null);
+  const [editingVerificationId, setEditingVerificationId] = useState(null);
+
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -60,8 +62,30 @@ const ResourceDetails = (props) => {
     });
   };
 
+  const handleUpdateVerification = async (
+    verificationId,
+    verificationFormData
+  ) => {
+    const updated = await verificationService.update(
+      resourceId,
+      verificationId,
+      verificationFormData
+    );
 
+    if (updated?.error) {
+      console.log(updated.error);
+      return;
+    }
 
+    setResource({
+      ...resource,
+      verifications: resource.verifications.map((v) =>
+        v.verification_id === verificationId ? updated : v
+      ),
+    });
+
+    setEditingVerificationId(null);
+  };
 
   if (!resource) return <main>Loading...</main>;
 
@@ -115,7 +139,7 @@ const ResourceDetails = (props) => {
       <section>
         <h2>Community Check-ins</h2>
 
-        <VerificationForm handleAddVerification={handleAddVerification} />
+        <VerificationForm handleSubmitVerification={handleAddVerification} />
 
         {!resource.verifications.length && <p>There are no check-ins yet.</p>}
 
@@ -130,15 +154,34 @@ const ResourceDetails = (props) => {
                 <strong>Status:</strong> {v.status}
               </p>
               {v.verification_author_id === user?.id && (
-                <button
-                  onClick={() => handleDeleteVerification(v.verification_id)}
-                >
-                  Delete
-                </button>
+                <>
+                  <button
+                    onClick={() => setEditingVerificationId(v.verification_id)}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    onClick={() => handleDeleteVerification(v.verification_id)}
+                  >
+                    Delete
+                  </button>
+                </>
               )}
             </header>
 
-            <p>{v.note}</p>
+            {editingVerificationId === v.verification_id ? (
+              <VerificationForm
+                initialData={{ status: v.status, note: v.note }}
+                buttonText="UPDATE"
+                handleSubmitVerification={(formData) =>
+                  handleUpdateVerification(v.verification_id, formData)
+                }
+                handleCancel={() => setEditingVerificationId(null)}
+              />
+            ) : (
+              <p>{v.note}</p>
+            )}
           </article>
         ))}
       </section>

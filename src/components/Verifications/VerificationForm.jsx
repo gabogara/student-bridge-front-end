@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const VerificationForm = (props) => {
   const [formData, setFormData] = useState({
@@ -6,14 +6,26 @@ const VerificationForm = (props) => {
     note: "",
   });
 
+  useEffect(() => {
+    if (props.initialData) {
+      setFormData({
+        status: props.initialData.status ?? "Active",
+        note: props.initialData.note ?? "",
+      });
+    }
+  }, [props.initialData]);
+
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    props.handleAddVerification(formData);
-    setFormData({ status: "Active", note: "" });
+    props.handleSubmitVerification(formData);
+
+    if (!props.initialData) {
+      setFormData({ status: "Active", note: "" });
+    }
   };
 
   return (
@@ -41,7 +53,15 @@ const VerificationForm = (props) => {
         onChange={handleChange}
       />
 
-      <button type="submit">SUBMIT CHECK-IN</button>
+      <button type="submit">
+        {props.buttonText ? props.buttonText : "SUBMIT"}
+      </button>
+
+      {props.initialData && props.handleCancel && (
+        <button type="button" onClick={props.handleCancel}>
+          Cancel
+        </button>
+      )}
     </form>
   );
 };
