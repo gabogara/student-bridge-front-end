@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router";
+import { Routes, Route, useNavigate, useLocation } from "react-router";
 
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
@@ -11,6 +11,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import ResourceList from "./components/Resources/ResourceList";
 import ResourceDetails from "./components/Resources/ResourceDetails";
 import ResourceForm from "./components/Resources/ResourceForm";
+import Footer from "./components/Footer/Footer.jsx";
 
 //services
 import * as resourceService from "./services/resourceService";
@@ -21,6 +22,11 @@ const App = () => {
   const [resources, setResources] = useState([]);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+
+  // set footer display rules
+  const location = useLocation();
+  const hideFooterPath = ["/sign-in", "/sign-up"];
+  const showFooter = !hideFooterPath.includes(location.pathname);
 
   const handleAddResource = async (resourceFormData) => {
     console.log("resourceFormData in App", resourceFormData);
@@ -57,7 +63,7 @@ const App = () => {
   }, [user]);
 
   return (
-    <>
+    <div className="app">
       <NavBar />
       <Routes>
         <Route
@@ -96,7 +102,8 @@ const App = () => {
           </>
         )}
       </Routes>
-    </>
+      {showFooter && <Footer />}
+    </div>
   );
 };
 
