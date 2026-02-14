@@ -6,14 +6,10 @@ import headerImg from "../../assets/sb-logo.svg";
 
 const Landing = () => {
   return (
-    <div className="landing-page-wrapper">
-      <main className="landing-container">
+    <div className="landing-page">
+      <div className="page landing-hero">
         <section className="landing-left">
-          <img
-            src={headerImg}
-            alt="StudentBridge"
-            className="landing-brand-img"
-          />
+          <img src={headerImg} alt="StudentBridge" className="landing-logo" />
 
           <div>
             <h1 className="landing-title">
@@ -43,7 +39,7 @@ const Landing = () => {
               </button>
             </Link>
 
-            <p className="landing-signin">
+            <p className="muted">
               Already have an account?{" "}
               <Link className="landing-link" to="/sign-in">
                 Sign in
@@ -59,7 +55,43 @@ const Landing = () => {
             className="landing-hero-img"
           />
         </section>
-      </main>
+      </div>
+
+      <section className="how-section">
+        <div className="page">
+          <h2>How it works</h2>
+          <p className="muted">A simple flow that matches the current MVP.</p>
+
+          <div className="how-grid">
+            <article className="card how-card">
+              <div className="how-number">1</div>
+              <h3>Explore</h3>
+              <p className="muted">
+                Open the dashboard map, filter by category, and search by
+                location text.
+              </p>
+            </article>
+
+            <article className="card how-card">
+              <div className="how-number">2</div>
+              <h3>Check details</h3>
+              <p className="muted">
+                Click a marker or list item to see address, requirements, and
+                check-in status.
+              </p>
+            </article>
+
+            <article className="card how-card">
+              <div className="how-number">3</div>
+              <h3>Contribute</h3>
+              <p className="muted">
+                Sign in to add a resource or post a check-in with a status +
+                short note.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
