@@ -55,14 +55,14 @@ button:hover {
 }
 
 button.primary {
-  background: #35ab5f;
-  border: 1px solid #35ab5f;
+  background: #0cc0df;
+  border: 1px solid #0cc0df;
   color: white;
 }
 
 button.primary:hover {
-  background-color: #2f9a55;
-  border-color: #2f9a55;
+  background-color: #0aa8c3;
+  border-color: #0aa8c3;
   color: #fff;
   text-decoration: none;
   transform: translateY(-2px);

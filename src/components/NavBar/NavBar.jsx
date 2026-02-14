@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 
 import { UserContext } from "../../contexts/UserContext";
 import "./NavBar.css";
-import logo from "../../assets/sb_logo.svg";
+import logo from "../../assets/sb-logo.svg";
 
 const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
@@ -20,13 +20,13 @@ const NavBar = () => {
 
   return (
     <nav className="navbar">
-      <div className="nav-left">
-        <Link to="/" state={from}>
-          <img src={logo} alt="student-bridge-logo" className="nav-logo" />
-        </Link>
-      </div>
       {user ? (
         <>
+          <div className="nav-left">
+            <Link to="/" state={from}>
+              <img src={logo} alt="student-bridge-logo" className="nav-logo" />
+            </Link>
+          </div>
           <div className="nav-right">
             <ul className="nav-links">
               <li>
