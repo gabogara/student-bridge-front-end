@@ -134,3 +134,8 @@ textarea {
   padding: 30px;
   justify-content: center;
 }
+
+.form-container {
+  max-width: 480px;
+  margin: 40px auto;
+}
