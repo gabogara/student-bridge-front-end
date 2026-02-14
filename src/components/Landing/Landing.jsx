@@ -60,7 +60,10 @@ const Landing = () => {
       <section className="how-section">
         <div className="page">
           <h2>How it works</h2>
-          <p className="muted">A simple flow that matches the current MVP.</p>
+          <p className="muted">
+            Browse, open details, and publish records: simple steps that keep
+            community resources accurate and easy to find.
+          </p>
 
           <div className="how-grid">
             <article className="card how-card">
