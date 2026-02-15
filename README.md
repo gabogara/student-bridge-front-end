@@ -1,16 +1,51 @@
-# React + Vite
+# Student Bridge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Game Gems Library](https://i.postimg.cc/CKQDdM5X/Screenshot-2026-02-15-at-10-32-34-AM.png)
 
-Currently, two official plugins are available:
+**StudentBridge** is a full-stack community resource platform that allows users to discover, create, and verify essential resources such as food, housing, health, and education services. The platform includes geolocation mapping, and verification workflows to ensure data reliability.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Links
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **Live App:** ([Netlify](https://student-bridge-dep.netlify.app/))
+- **GitHub Repository:** ([Github](https://github.com/gabogara/student-bridge-front-end))
+- **Planning:** ([Trello](https://trello.com/b/sXX6cen2/project-4-studentbridge))
+- **ERD / Data Model diagram:** ([Made in drawio](https://drive.google.com/file/d/10LHklKdwPWvNp2KfuOo9l2r3TpI8zchH/view?usp=sharing))
 
-## Expanding the ESLint configuration
+---
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- React
+- React Router
+- Mapbox GL
+- CSS / Flexbox
+
+### Backend
+- Flask
+- PostgreSQL
+- JWT Authentication
+- REST API
+- Psycopg2
+
+## Features
+
+- **User Authentication**: Registration and login with JWT authentication
+- **Resource Management**: Full CRUD functionality for resources
+- **Verification System**: Nested verification system for resource validation
+- **Category Filtering**: Filter resources by type (food, housing, health, education)
+- **Interactive Mapping**: Mapbox integration with geocoded resource locations
+- **Secure Access**: Protected routes and conditional UI rendering
+- **Data Integrity**: Backend validation and relational integrity
+
+## Data Modeling
+
+The application uses a normalized relational schema with the following entities:
+
+- **Users**: Store user account information
+- **Resources**: Community resources with location and category data
+- **Verifications**: Validation records for resource accuracy
+- **Saves**: User-saved resources for quick access
+
+---
