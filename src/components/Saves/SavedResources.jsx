@@ -25,25 +25,30 @@ const SavedResources = () => {
   }, []);
 
   return (
-    <main>
-      <h1>Saved Resources</h1>
+    <main className="page">
+      <div className="resources-header">
+        <h1>Saved Resources</h1>
+      </div>
 
-      {!savedResources.length && <p>You have no saved resources yet.</p>}
+      {!savedResources.length && (
+        <p className="muted">You have no saved resources yet.</p>
+      )}
+      <div className="resources-grid">
+        {savedResources.map((r) => (
+          <Link key={r.id} to={`/resources/${r.id}`}>
+            <article className="resource-article">
+              <div className="resources-header">
+                <h2>{r.title}</h2>
+              </div>
+              <span className="muted">{r.category}</span>
 
-      {savedResources.map((r) => (
-        <article key={r.id}>
-          <header>
-            <h2>{r.title}</h2>
-            <p>{r.category}</p>
-          </header>
-
-          <p>
-            {r.address}, {r.city}
-          </p>
-
-          <Link to={`/resources/${r.id}`}>View details</Link>
-        </article>
-      ))}
+              <p className="muted">
+                {r.address}, {r.city}
+              </p>
+            </article>
+          </Link>
+        ))}
+      </div>
     </main>
   );
 };
