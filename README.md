@@ -97,6 +97,8 @@ The backend implementation for StudentBridge can be accessed at the following re
 - Add pagination and performance optimizations for large datasets.
 - Implement automated verification scoring based on community feedback.
 - Enable image uploads for resources with secure cloud storage integration.
+- Implement full **moderator role** support using the `is_moderator` flag in the `users` table to enable moderator-only actions (approve/reject verifications, hide/remove resources, and manage reported content).
+
 
 
 ## Attributions
