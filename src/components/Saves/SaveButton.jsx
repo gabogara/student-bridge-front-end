@@ -1,7 +1,7 @@
 const SaveButton = (props) => {
   return (
     <button type="button" onClick={props.handleToggleSave}>
-      {props.isSaved ? "Unsave" : "Save"}
+      {props.isSaved ? "Unsave" : "Save ❤️"}
     </button>
   );
 };

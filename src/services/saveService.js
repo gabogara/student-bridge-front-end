@@ -25,4 +25,18 @@ const create = async (resourceId) => {
   }
 };
 
-export { index, create };
+const remove = async (resourceId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/resources/${resourceId}/saves`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { index, create, remove };

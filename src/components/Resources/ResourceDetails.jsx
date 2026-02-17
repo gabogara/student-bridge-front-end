@@ -38,14 +38,13 @@ const ResourceDetails = (props) => {
     };
     fetchResource();
   }, [resourceId]);
-  console.log("resource state:", resource);
 
   const handleToggleSave = async () => {
     if (!resource) return;
 
     let result;
     if (isSaved) {
-      console.log("Remove Selected")
+      result = await saveService.remove(resourceId);
     } else {
       result = await saveService.create(resourceId);
     }

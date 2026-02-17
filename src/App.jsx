@@ -94,7 +94,7 @@ const App = () => {
                 <ResourceForm handleUpdateResource={handleUpdateResource} />
               }
             />
-            <Route path="/saves" element={<SavedResources />} />
+            <Route path="/saved" element={<SavedResources />} />
           </>
         ) : (
           <>

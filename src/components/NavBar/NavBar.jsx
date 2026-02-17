@@ -41,8 +41,11 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/saved">SAVED</Link>
+              </li>
+              <li>
                 <Link to="/" onClick={handleSignOut}>
-                  Sign Out
+                  SIGN OUT
                 </Link>
               </li>
             </ul>
