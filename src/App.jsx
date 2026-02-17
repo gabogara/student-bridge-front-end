@@ -17,6 +17,7 @@ import Footer from "./components/Footer/Footer.jsx";
 import * as resourceService from "./services/resourceService";
 
 import { UserContext } from "./contexts/UserContext";
+import SavedResources from "./components/Saves/SavedResources.jsx";
 
 const App = () => {
   const [resources, setResources] = useState([]);
@@ -93,6 +94,7 @@ const App = () => {
                 <ResourceForm handleUpdateResource={handleUpdateResource} />
               }
             />
+            <Route path="/saves" element={<SavedResources />} />
           </>
         ) : (
           <>

@@ -5,6 +5,8 @@ import * as resourceService from "../../services/resourceService";
 import { UserContext } from "../../contexts/UserContext";
 import * as verificationService from "../../services/verificationService";
 import VerificationForm from "../Verifications/VerificationForm";
+import * as saveService from "../../services/saveService";
+import SaveButton from "../Saves/SaveButton";
 
 import "./ResourceDetails.css";
 
@@ -13,6 +15,7 @@ const ResourceDetails = (props) => {
   console.log("resourceId", resourceId);
   const [resource, setResource] = useState(null);
   const [editingVerificationId, setEditingVerificationId] = useState(null);
+  const [isSaved, setIsSaved] = useState(false);
 
   const { user } = useContext(UserContext);
   const location = useLocation();
@@ -26,10 +29,34 @@ const ResourceDetails = (props) => {
       resourceData.verifications = resourceData.verifications || [];
 
       setResource(resourceData);
+
+      const savedList = await saveService.index();
+      if (!savedList?.error) {
+        const saved = savedList.some((r) => r.id === Number(resourceId));
+        setIsSaved(saved);
+      }
     };
     fetchResource();
   }, [resourceId]);
   console.log("resource state:", resource);
+
+  const handleToggleSave = async () => {
+    if (!resource) return;
+
+    let result;
+    if (isSaved) {
+      console.log("Remove Selected")
+    } else {
+      result = await saveService.create(resourceId);
+    }
+
+    if (result?.error) {
+      console.log(result.error);
+      return;
+    }
+
+    setIsSaved(!isSaved);
+  };
 
   const handleAddVerification = async (verificationFormData) => {
     const newVerification = await verificationService.create(
@@ -122,6 +149,11 @@ const ResourceDetails = (props) => {
               <button type="button" onClick={() => navigate(from)}>
                 Go Back
               </button>
+
+              <SaveButton
+                isSaved={isSaved}
+                handleToggleSave={handleToggleSave}
+              />
 
               {isOwner && (
                 <div className="details-actions">
