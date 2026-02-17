@@ -9,6 +9,7 @@ const SearchBar = (props) => {
       <input
         type="text"
         id="search-input"
+        autoComplete="off"
         value={props.searchText}
         onChange={handleChange}
         placeholder="Title, description, address, city..."

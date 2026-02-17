@@ -31,6 +31,11 @@ const SavedResources = () => {
       <div className="resources-header">
         <h1>Saved Resources</h1>
       </div>
+      <div className="button-row">
+        <Link to="/">
+          <button type="button">Return to Dashboard</button>
+        </Link>
+      </div>
 
       {!savedResources.length && (
         <p className="muted">You have no saved resources yet.</p>
