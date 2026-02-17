@@ -131,7 +131,10 @@ const ResourceForm = (props) => {
               <button className="primary" type="submit">
                 SUBMIT
               </button>
-              <button type="button" onClick={() => navigate(from)}>
+              <button
+                type="button"
+                onClick={() => navigate(from, { replace: true })}
+              >
                 Cancel
               </button>
             </div>

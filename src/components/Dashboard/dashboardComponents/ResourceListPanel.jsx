@@ -1,6 +1,8 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const ResourceListPanel = (props) => {
+  const location = useLocation();
+  const from = location.pathname + location.search;
   return (
     <section className="panel">
       <div className="resources-header">
@@ -30,7 +32,11 @@ const ResourceListPanel = (props) => {
                 </div>
                 <p className="muted">{`${resource.address}, ${resource.city}`}</p>
 
-                <Link className="primary" to={`/resources/${resource.id}`}>
+                <Link
+                  className="primary"
+                  to={`/resources/${resource.id}`}
+                  state={{ from }}
+                >
                   View Details
                 </Link>
               </button>

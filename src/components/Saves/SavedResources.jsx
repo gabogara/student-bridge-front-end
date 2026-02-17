@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import * as saveService from "../../services/saveService";
 
 const SavedResources = () => {
+  const location = useLocation();
+  const from = location.pathname + location.search;
   const [savedResources, setSavedResources] = useState([]);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ const SavedResources = () => {
       )}
       <div className="resources-grid">
         {savedResources.map((r) => (
-          <Link key={r.id} to={`/resources/${r.id}`}>
+          <Link key={r.id} to={`/resources/${r.id}`} state={{ from }}>
             <article className="resource-article">
               <div className="resources-header">
                 <h2>{r.title}</h2>

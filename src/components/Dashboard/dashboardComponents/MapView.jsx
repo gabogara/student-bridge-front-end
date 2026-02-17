@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
@@ -7,6 +7,8 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const MapView = ({ resources, selectedResource, setSelectedResource }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.pathname + location.search;
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const markersRef = useRef([]);
@@ -99,7 +101,7 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
 
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
-          navigate(`/resources/${resource.id}`);
+          navigate(`/resources/${resource.id}`, { state: { from } });
         });
       });
 
