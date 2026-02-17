@@ -35,6 +35,21 @@ a {
   text-decoration: none;
 }
 
+a.primary {
+  background: #0cc0df;
+  border: 1px solid #0cc0df;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+a.primary:hover {
+  background: #0aa8c3;
+}
+
 main {
   width: 100%;
 }

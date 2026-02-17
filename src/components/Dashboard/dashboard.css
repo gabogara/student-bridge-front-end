@@ -1,41 +1,45 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  height: calc(100vh - 53px);
 }
 
-.dashboard-header p {
-  margin: 0;
+.dashboard-header {
+  padding-bottom: 8px;
+  padding-top: 16px;
 }
 
 .dashboard-controls {
   display: flex;
+  align-items: flex-end;
   gap: 12px;
-  align-items: end;
+  flex-wrap: wrap;
+  padding-top: 0;
+  padding-bottom: 12px;
 }
 
-.control {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.dashboard-controls .control {
+  flex: 1;
+  min-width: 160px;
 }
 
 .dashboard-layout {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 16px;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 0;
 }
 
-.dashboard-sidebar,
-.dashboard-map {
-  border: 1px solid #d9e2ef;
+.dashboard-sidebar {
+  width: 340px;
+  min-width: 280px;
+  overflow-y: auto;
+  border-right: 1px solid #d9e2ef;
   background: white;
-  border-radius: 10px;
 }
 
-.map-container {
-  width: 100%;
-  height: 70vh;
+.panel {
+  padding: 12px 14px;
 }
 
 .resource-list {
@@ -43,41 +47,59 @@
   padding: 0;
   margin: 0;
   display: grid;
-  gap: 10px;
-}
-
-.resource-item {
-  border: 1px solid #eee;
-  padding: 10px;
-}
-
-.resource-item.selected {
-  border: 1px solid #999;
+  gap: 8px;
 }
 
 .resource-select {
   width: 100%;
   text-align: left;
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+  display: block;
+}
+
+.resource-article.selected {
+  border-color: #0cc0df;
+  background: #f0fbfd;
 }
 
 .resource-link {
+  color: #0cc0df;
+  font-size: 13px;
+  font-weight: bold;
   display: inline-block;
   margin-top: 6px;
 }
-
-.muted {
-  opacity: 0.8;
+.resources-header {
+  align-items: flex-start;
 }
 
-.popup-btn {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 8px 10px;
-  border: 1px solid #ddd;
-  background: transparent;
-  cursor: pointer;
+.dashboard-map {
+  flex: 1;
+}
+
+.map-container {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    height: auto;
+  }
+
+  .dashboard-layout {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #d9e2ef;
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+
+  .dashboard-map {
+    height: 50vh;
+  }
 }
