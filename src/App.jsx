@@ -101,6 +101,7 @@ const App = () => {
             {/* Non-user routes for guests */}
             <Route path="/sign-up" element={<SignUpForm />} />
             <Route path="/sign-in" element={<SignInForm />} />
+            <Route path="*" element={<SignInForm />} />
           </>
         )}
       </Routes>

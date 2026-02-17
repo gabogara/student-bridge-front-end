@@ -15,7 +15,7 @@ const NavBar = () => {
   const handleSignOut = () => {
     localStorage.removeItem("token");
     setUser(null);
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   return (
@@ -23,7 +23,7 @@ const NavBar = () => {
       {user ? (
         <>
           <div className="nav-left">
-            <Link to="/" state={from}>
+            <Link to="/" state={{ from }}>
               <img src={logo} alt="student-bridge-logo" className="nav-logo" />
             </Link>
           </div>
@@ -44,9 +44,13 @@ const NavBar = () => {
                 <Link to="/saved">SAVED</Link>
               </li>
               <li>
-                <Link to="/" onClick={handleSignOut}>
+                <button
+                  type="button"
+                  className="nav-link-btn"
+                  onClick={handleSignOut}
+                >
                   SIGN OUT
-                </Link>
+                </button>
               </li>
             </ul>
           </div>

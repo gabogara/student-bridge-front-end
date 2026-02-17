@@ -13,7 +13,7 @@ const SignInForm = () => {
     username: "",
     password: "",
   });
-
+  
   const handleChange = (evt) => {
     setMessage("");
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -25,7 +25,7 @@ const SignInForm = () => {
       const signedInUser = await signIn(formData);
 
       setUser(signedInUser);
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (err) {
       setMessage(err.message);
     }
