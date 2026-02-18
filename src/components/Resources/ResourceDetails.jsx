@@ -12,7 +12,6 @@ import "./ResourceDetails.css";
 
 const ResourceDetails = (props) => {
   const { resourceId } = useParams();
-  console.log("resourceId", resourceId);
   const [resource, setResource] = useState(null);
   const [editingVerificationId, setEditingVerificationId] = useState(null);
   const [isSaved, setIsSaved] = useState(false);

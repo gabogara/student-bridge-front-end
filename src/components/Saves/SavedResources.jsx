@@ -16,7 +16,6 @@ const SavedResources = () => {
           console.log(data.error);
           return;
         }
-        console.log("data saved:", data);
         setSavedResources(data);
       } catch (err) {
         console.log(err);

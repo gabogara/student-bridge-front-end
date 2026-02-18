@@ -4,8 +4,6 @@ import * as resourceService from "../../services/resourceService";
 
 const ResourceForm = (props) => {
   const { resourceId } = useParams();
-  console.log("If new it must be undefined", resourceId);
-
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || "/resources";
@@ -23,7 +21,6 @@ const ResourceForm = (props) => {
     const fetchResource = async () => {
       const resourceData = await resourceService.show(resourceId);
 
-      // Prefill form data from the transaction returned by the API
       setFormData({
         title: resourceData.title ?? "",
         description: resourceData.description ?? "",
@@ -52,7 +49,6 @@ const ResourceForm = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log("formData in resource", formData);
     if (resourceId) {
       props.handleUpdateResource(resourceId, formData);
     } else {

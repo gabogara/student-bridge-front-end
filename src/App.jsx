@@ -30,7 +30,6 @@ const App = () => {
   const showFooter = !hideFooterPath.includes(location.pathname);
 
   const handleAddResource = async (resourceFormData) => {
-    console.log("resourceFormData in App", resourceFormData);
     const newResource = await resourceService.create(resourceFormData);
     setResources([newResource, ...resources]);
 
@@ -57,7 +56,6 @@ const App = () => {
   useEffect(() => {
     const fetchAllResources = async () => {
       const resourcesData = await resourceService.index();
-      console.log("resourcesData:", resourcesData);
       setResources(resourcesData);
     };
     if (user) fetchAllResources();
