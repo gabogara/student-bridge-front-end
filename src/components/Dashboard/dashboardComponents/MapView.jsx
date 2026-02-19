@@ -55,11 +55,10 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
     });
 
     return () => {
-      // clean markers
       markersRef.current.forEach((m) => m.remove());
       markersRef.current = [];
 
-      // remove map and resetear ref
+
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;
@@ -67,13 +66,11 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
     };
   }, []);
 
-  // Create / refresh markers when resources change
   useEffect(() => {
     if (!mapRef.current) return;
 
     if (!mapRef.current.getCanvasContainer) return;
 
-    // remove old markers
     markersRef.current.forEach((m) => m.remove());
     markersRef.current = [];
 
@@ -84,7 +81,6 @@ const MapView = ({ resources, selectedResource, setSelectedResource }) => {
       const lat = Number(resource.lat);
       const lng = Number(resource.lng);
 
-      // si lat/lng are not valid num ignora
       if (Number.isNaN(lat) || Number.isNaN(lng)) return;
 
       hasPoints = true;

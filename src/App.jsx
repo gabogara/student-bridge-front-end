@@ -13,7 +13,6 @@ import ResourceDetails from "./components/Resources/ResourceDetails";
 import ResourceForm from "./components/Resources/ResourceForm";
 import Footer from "./components/Footer/Footer.jsx";
 
-//services
 import * as resourceService from "./services/resourceService";
 
 import { UserContext } from "./contexts/UserContext";
@@ -24,7 +23,7 @@ const App = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // set footer display rules
+
   const location = useLocation();
   const hideFooterPath = ["/sign-in", "/sign-up"];
   const showFooter = !hideFooterPath.includes(location.pathname);
